@@ -30,4 +30,5 @@ group :test do
   gem "rspec-rails", ">= 1.2.9"
   gem 'dataset' # TODO: set version
   gem 'lindo' #TODO: set version
+  gem 'ruby-debug'
 end
