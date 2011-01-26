@@ -116,6 +116,8 @@ class PluginsController < ApplicationController
     
     def find_plugin
       @plugin = Plugin.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render_404
     end
     
     def require_correct_permissions
