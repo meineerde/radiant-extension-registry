@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe ExtensionsController do
-  dataset :extensions
+describe PluginsController do
+  dataset :plugins
   
   integrate_views
   
@@ -12,9 +12,9 @@ describe ExtensionsController do
       response.should_not be_redirect
     end
     
-    it "should load a list of paginated extensions" do
+    it "should load a list of paginated plugins" do
       get :index
-      assigns[:extensions].should_not be_blank
+      assigns[:plugins].should_not be_blank
     end
     
     it "should render the index template" do
@@ -39,10 +39,10 @@ describe ExtensionsController do
     describe "unpaginated" do
       dataset :paginated
       
-      it "should load a list of all extensions" do
+      it "should load a list of all plugins" do
         get :all
-        assigns[:extensions].should_not be_blank
-        assigns[:extensions].size.should == Extension.count
+        assigns[:plugins].should_not be_blank
+        assigns[:plugins].size.should == Plugin.count
         response.should render_template(:index)
       end
       
@@ -52,22 +52,22 @@ describe ExtensionsController do
   describe "show action" do
     it "should not require login" do
       controller.should_not_receive(:access_denied)
-      get :show, :id => extension_id(:page_attachments)
+      get :show, :id => plugin_id(:page_attachments)
       response.should_not be_redirect
     end
     
-    it "should load an extension by id" do
-      get :show, :id => extension_id(:page_attachments)
-      assigns[:extension].should == extensions(:page_attachments)
+    it "should load a plugin by id" do
+      get :show, :id => plugin_id(:page_attachments)
+      assigns[:plugin].should == plugins(:page_attachments)
     end
     
     it "should render the show template" do
-      get :show, :id => extension_id(:page_attachments)
+      get :show, :id => plugin_id(:page_attachments)
       response.should render_template('show')
     end
     
     it "should should provide XML" do
-      get :show, :id => extension_id(:page_attachments), :format => 'xml'
+      get :show, :id => plugin_id(:page_attachments), :format => 'xml'
       response.headers['Content-Type'].should match(/xml/)
     end
   end
@@ -88,34 +88,34 @@ describe ExtensionsController do
       response.should render_template('new')
     end
     
-    it "should load a new extension" do
+    it "should load a new plugin" do
       get :new
-      assigns[:extension].should_not be_nil
-      assigns[:extension].should be_new_record
+      assigns[:plugin].should_not be_nil
+      assigns[:plugin].should be_new_record
     end
   end
   
   describe "create action" do
     before :each do
       login_as :quentin
-      @extension = extensions(:page_attachments)
-      Extension.stub!(:new).and_return(@extension)
+      @plugin = plugins(:page_attachments)
+      Plugin.stub!(:new).and_return(@plugin)
     end
     
     it "should require login" do
       logout
       post :create
-      Extension.should_not_receive(:new)
+      Plugin.should_not_receive(:new)
       response.should be_redirect
     end
 
     describe "when save succeeds" do
       before :each do
-        @extension.should_receive(:save).and_return(true)
+        @plugin.should_receive(:save).and_return(true)
       end
       
       it "should set the author" do
-        @extension.should_receive(:author=).with(authors(:quentin))
+        @plugin.should_receive(:author=).with(authors(:quentin))
         post :create
       end
       
@@ -124,9 +124,9 @@ describe ExtensionsController do
         response.should be_redirect
       end
       
-      it "should build the extension object" do
+      it "should build the plugin object" do
         post :create
-        assigns[:extension].should == @extension
+        assigns[:plugin].should == @plugin
       end
       
       it "should create the object when XML" do
@@ -138,7 +138,7 @@ describe ExtensionsController do
     
     describe "when save fails" do
       before :each do
-        @extension.should_receive(:save).and_return(false)
+        @plugin.should_receive(:save).and_return(false)
       end
       
       it "should render the new template" do
@@ -161,24 +161,24 @@ describe ExtensionsController do
     
     it "should require login" do
       logout
-      get :edit, :id => extension_id(:page_attachments)
+      get :edit, :id => plugin_id(:page_attachments)
       response.should be_redirect
     end
     
-    it "should require the author to be the owner of the extension" do
+    it "should require the author to be the owner of the plugin" do
       login_as :aaron
-      get :edit, :id => extension_id(:page_attachments)
+      get :edit, :id => plugin_id(:page_attachments)
       response.should be_redirect
       flash[:error].should_not be_nil
     end
     
-    it "should load the given extension" do
-      get :edit, :id => extension_id(:page_attachments)
-      assigns[:extension].should == extensions(:page_attachments)
+    it "should load the given plugin" do
+      get :edit, :id => plugin_id(:page_attachments)
+      assigns[:plugin].should == plugins(:page_attachments)
     end
     
     it "should render the edit template" do
-      get :edit, :id => extension_id(:page_attachments)
+      get :edit, :id => plugin_id(:page_attachments)
       response.should render_template('edit')
     end
   end
@@ -186,55 +186,55 @@ describe ExtensionsController do
   describe "update action" do
     before :each do
       login_as :seancribbs
-      @extension = extensions(:page_attachments)
+      @plugin = plugins(:page_attachments)
     end
     
     it "should require login" do
       logout
-      put :update, :id => @extension.id, :extension => { :name => "changed" }
-      extensions(:page_attachments).name.should == "page_attachments"
+      put :update, :id => @plugin.id, :plugin => { :name => "changed" }
+      plugins(:page_attachments).name.should == "page_attachments"
       response.should be_redirect
     end
     
-    it "should require the author to be the owner of the extension" do
+    it "should require the author to be the owner of the plugin" do
       login_as :aaron
-      put :update, :id => extension_id(:page_attachments), :extension => { :name => "changed" }
-      extensions(:page_attachments).name.should == "page_attachments"
+      put :update, :id => plugin_id(:page_attachments), :plugin => { :name => "changed" }
+      plugins(:page_attachments).name.should == "page_attachments"
       response.should be_redirect
       flash[:error].should_not be_nil
     end
 
     describe "when save succeeds" do
       it "should redirect" do
-        put :update, :id => extension_id(:page_attachments), :extension => { :name => "changed" }
-        extensions(:page_attachments).name.should == "changed"
+        put :update, :id => plugin_id(:page_attachments), :plugin => { :name => "changed" }
+        plugins(:page_attachments).name.should == "changed"
         response.should be_redirect
       end
       
-      it "should build the extension object" do
-        put :update, :id => extension_id(:page_attachments), :extension => { :name => "changed" }
-        extensions(:page_attachments).name.should == "changed"
-        assigns[:extension].should == @extension
+      it "should build the plugin object" do
+        put :update, :id => plugin_id(:page_attachments), :plugin => { :name => "changed" }
+        plugins(:page_attachments).name.should == "changed"
+        assigns[:plugin].should == @plugin
       end
       
       it "should update the object when XML" do
-        put :update, :id => extension_id(:page_attachments), :extension => { :name => "changed" }, :format => 'xml'
-        extensions(:page_attachments).name.should == "changed"
+        put :update, :id => plugin_id(:page_attachments), :plugin => { :name => "changed" }, :format => 'xml'
+        plugins(:page_attachments).name.should == "changed"
         (200..299).should include(response.response_code)
       end
     end
     
     describe "when save fails" do
       it "should render the edit template" do
-        put :update, :id => extension_id(:page_attachments), :extension => { :name => "" }
+        put :update, :id => plugin_id(:page_attachments), :plugin => { :name => "" }
         response.should render_template('edit')
-        extensions(:page_attachments).name.should == "page_attachments"
+        plugins(:page_attachments).name.should == "page_attachments"
       end
       
       it "should render errors when XML" do
-        put :update, :id => extension_id(:page_attachments), :extension => { :name => "" }, :format => 'xml'
+        put :update, :id => plugin_id(:page_attachments), :plugin => { :name => "" }, :format => 'xml'
         response.should_not be_success
-        extensions(:page_attachments).name.should == "page_attachments"
+        plugins(:page_attachments).name.should == "page_attachments"
       end
     end
   end
@@ -242,33 +242,33 @@ describe ExtensionsController do
   describe "destroy action" do
     before :each do
       login_as :seancribbs
-      @extension = extensions(:page_attachments)
+      @plugin = plugins(:page_attachments)
     end
     
     it "should require login" do
       logout
-      delete :destroy, :id => @extension.id
-      Extension.find_by_id(@extension.id).should_not be_nil
+      delete :destroy, :id => @plugin.id
+      plugin.find_by_id(@plugin.id).should_not be_nil
       response.should be_redirect
     end
     
-    it "should require the author to be the owner of the extension" do
+    it "should require the author to be the owner of the plugin" do
       login_as :aaron
-      delete :destroy, :id => @extension.id
-      Extension.find_by_id(@extension.id).should_not be_nil
+      delete :destroy, :id => @plugin.id
+      plugin.find_by_id(@plugin.id).should_not be_nil
       response.should be_redirect
       flash[:error].should_not be_nil
     end
     
     it "should destroy and redirect" do
-      delete :destroy, :id => @extension.id
-      Extension.find_by_id(@extension.id).should be_nil
+      delete :destroy, :id => @plugin.id
+      plugin.find_by_id(@plugin.id).should be_nil
       response.should be_redirect
     end
     
     it "should destroy when XML" do
-      delete :destroy, :id => @extension.id, :format => 'xml'
-      Extension.find_by_id(@extension.id).should be_nil
+      delete :destroy, :id => @plugin.id, :format => 'xml'
+      plugin.find_by_id(@plugin.id).should be_nil
       (200..299).should include(response.response_code)
     end
   end

@@ -2,11 +2,11 @@ class AuthorsDataset < Dataset::Base
 
   def load
     create_author "Quentin Randolf", :login => "quentin", :identity_url => "http://radiant.openid.com"
-    create_author "Aaron Warhaul", :login => "aaron", :notes => "Just another extension author"
+    create_author "Aaron Warhaul", :login => "aaron", :notes => "Just another plugin author"
     create_author "Jim Gay", :login => "saturnflyer", :email => "jim@saturnflyer.com", :notes => "Core team member."
     create_author "John Long", :login => "jlong", :email => "me@johnwlong.com", :notes => "Creator of Radiant CMS and lead designer. Principle of Wiseheart Design.", :available_for_hire => true
     create_author "Sean Cribbs", :login => "seancribbs", :email => "seancribbs@gmail.com", :notes => "Lead developer of Radiant CMS.", :available_for_hire => true
-    create_author "Adam", :login => "adam", :notes => "I haven't created any extensions.", :available_for_hire => false
+    create_author "Adam", :login => "adam", :notes => "I haven't created any plugins.", :available_for_hire => false
   end
 
   helpers do

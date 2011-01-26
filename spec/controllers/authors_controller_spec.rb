@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe AuthorsController do
-  dataset :authors, :extensions
+  dataset :authors, :plugins
   
   integrate_views
   
