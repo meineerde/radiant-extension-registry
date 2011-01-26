@@ -4,13 +4,13 @@
     %title= @title
     = stylesheet_link_tag "screen"
     = javascript_include_tag :defaults
-    %link{:href => extensions_path(:format => :atom), :rel => "alternate", :type => "application/atom+xml", :title => "ChiliProject Plugin Registry"}
+    %link{:href => plugins_path(:format => :atom), :rel => "alternate", :type => "application/atom+xml", :title => "ChiliProject Plugin Registry"}
   %body{:id => "#{@controller.controller_name}_#{@controller.action_name}"}
     #header_wrapper
       #header
         #logo 
-          .title Radiant CMS
-          .subtitle Extension Registry
+          .title ChiliProject
+          .subtitle Plugin Registry
           .parent_site= link_to "ChiliProject.org", "http://www.chiliproject.org"
     #navigation_wrapper
       #navigation
@@ -53,7 +53,7 @@
     #footer_wrapper
       #footer
         %p
-          The <a href="https://github.com/chiliproject/extension-registry">source code</a>
+          The <a href="https://github.com/chiliproject/plugin-registry">source code</a>
           for this website is available on GitHub. Contact us on the 
           <a href="https://www.chiliproject.org/projects/chiliproject/boards">ChiliProject Forums</a>
           if you are interested in contributing, or just send us a pull request.
