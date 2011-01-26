@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100205072216) do
+ActiveRecord::Schema.define(:version => 20110126184715) do
 
   create_table "authors", :force => true do |t|
     t.string   "login"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20100205072216) do
     t.string   "website"
     t.string   "identity_url"
     t.text     "notes"
-    t.integer  "extensions_count",                        :default => 0
+    t.integer  "plugins_count",                           :default => 0
     t.boolean  "available_for_hire",                      :default => false
     t.string   "company",                   :limit => 40
     t.string   "location",                  :limit => 40
@@ -32,13 +32,28 @@ ActiveRecord::Schema.define(:version => 20100205072216) do
   end
 
   create_table "dependencies", :force => true do |t|
-    t.integer  "extension_id"
+    t.integer  "plugin_id"
     t.integer  "satisfier_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "extensions", :force => true do |t|
+  create_table "open_id_authentication_associations", :force => true do |t|
+    t.integer "issued"
+    t.integer "lifetime"
+    t.string  "handle"
+    t.string  "assoc_type"
+    t.binary  "server_url"
+    t.binary  "secret"
+  end
+
+  create_table "open_id_authentication_nonces", :force => true do |t|
+    t.integer "timestamp",  :null => false
+    t.string  "server_url"
+    t.string  "salt",       :null => false
+  end
+
+  create_table "plugins", :force => true do |t|
     t.string   "name"
     t.string   "repository_url"
     t.string   "download_url"
@@ -58,21 +73,6 @@ ActiveRecord::Schema.define(:version => 20100205072216) do
     t.string   "additional_installation_instructions", :limit => 1000
   end
 
-  add_index "extensions", ["name", "description"], :name => "extensions_search"
-
-  create_table "open_id_authentication_associations", :force => true do |t|
-    t.integer "issued"
-    t.integer "lifetime"
-    t.string  "handle"
-    t.string  "assoc_type"
-    t.binary  "server_url"
-    t.binary  "secret"
-  end
-
-  create_table "open_id_authentication_nonces", :force => true do |t|
-    t.integer "timestamp",  :null => false
-    t.string  "server_url"
-    t.string  "salt",       :null => false
-  end
+  add_index "plugins", ["name", "description"], :name => "plugins_search"
 
 end

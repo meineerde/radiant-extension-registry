@@ -10,7 +10,10 @@ class SplitInstallTypeIntoRepoAndDownloadTypes < ActiveRecord::Migration
     'Bzip2',
     'Zip'
   ]
-  
+
+  class Extension < ActiveRecord::Base
+  end
+
   def self.up
     add_column :extensions, :repository_type, :string
     add_column :extensions, :download_type, :string
