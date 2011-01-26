@@ -14,12 +14,6 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
   
-  # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem "RedCloth", :version => ">=4.2.2"
-  config.gem "paperclip", :version => ">=2.3.1.1"
-  config.gem "will_paginate", :version => "~> 2.3.11", :source => "http://gemcutter.org"
-  config.gem "thinking-sphinx", :version => "1.3.18", :lib => "thinking_sphinx", :source => "http://gemcutter.org"
-  
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
