@@ -248,27 +248,27 @@ describe PluginsController do
     it "should require login" do
       logout
       delete :destroy, :id => @plugin.id
-      plugin.find_by_id(@plugin.id).should_not be_nil
+      Plugin.find_by_id(@plugin.id).should_not be_nil
       response.should be_redirect
     end
     
     it "should require the author to be the owner of the plugin" do
       login_as :aaron
       delete :destroy, :id => @plugin.id
-      plugin.find_by_id(@plugin.id).should_not be_nil
+      Plugin.find_by_id(@plugin.id).should_not be_nil
       response.should be_redirect
       flash[:error].should_not be_nil
     end
     
     it "should destroy and redirect" do
       delete :destroy, :id => @plugin.id
-      plugin.find_by_id(@plugin.id).should be_nil
+      Plugin.find_by_id(@plugin.id).should be_nil
       response.should be_redirect
     end
     
     it "should destroy when XML" do
       delete :destroy, :id => @plugin.id, :format => 'xml'
-      plugin.find_by_id(@plugin.id).should be_nil
+      Plugin.find_by_id(@plugin.id).should be_nil
       (200..299).should include(response.response_code)
     end
   end
