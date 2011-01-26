@@ -1,4 +1,4 @@
-module ExtensionsHelper
+module PluginsHelper
   
   def short_description(description)
     first_line = description.split("\n\n").first
@@ -24,7 +24,7 @@ module ExtensionsHelper
   
   def view_orders(current)
     o = []
-    ExtensionsController::ORDER_BY.keys.each {|order|
+    PluginsController::ORDER_BY.keys.each {|order|
       if current==order
         o << t(".#{order}")
       else

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   def can_edit?(model)
     case model
-    when Extension
+    when Plugin
       !!(current_author && ((current_author.id == model.author_id) || current_author.manager?))
     when Author
       !!(current_author && (current_author.id == model.id))
