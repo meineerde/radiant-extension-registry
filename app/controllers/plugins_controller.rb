@@ -94,7 +94,7 @@ class PluginsController < ApplicationController
   # DELETE /plugins/1
   # DELETE /plugins/1.xml
   def destroy
-    if @plugins.destroy
+    if @plugin.destroy
       respond_to do |format|
         format.html { flash[:notice] = "Plugin deleted!"; redirect_to plugins_url }
         format.js
