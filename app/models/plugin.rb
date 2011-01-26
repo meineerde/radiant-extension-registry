@@ -1,4 +1,4 @@
-class Extension < ActiveRecord::Base
+class Plugin < ActiveRecord::Base
   belongs_to :author
   
   has_attached_file :screenshot, :styles => { :thumb => "120x88>", :medium => "180x133>", :large => "640x480>" }
@@ -79,7 +79,7 @@ class Extension < ActiveRecord::Base
     xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
     xml.instruct! unless options[:skip_instruct]
     
-    xml.extension do
+    xml.plugin do
       xml.tag!("name", name)
       xml.tag!("description", description)
       xml.tag!("repository-type", repository_type)
@@ -100,11 +100,11 @@ class Extension < ActiveRecord::Base
       end
     end
   end
-  
-  protected
-    
-    def update_cached_fields
-      Author.update_all(['extensions_count = ?', Extension.count(:id, :conditions => { :author_id => author_id })], ["id = ?", author_id])
-    end
-  
+
+
+protected
+  def update_cached_fields
+    Author.update_all(['plugins_count = ?', Plugin.count(:id, :conditions => { :author_id => author_id })], ["id = ?", author_id])
+  end
+
 end

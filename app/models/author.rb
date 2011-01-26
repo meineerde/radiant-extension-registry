@@ -19,18 +19,18 @@ class Author < ActiveRecord::Base
                   :name, :website, :company, :location, :notes,
                   :available_for_hire
   
-  has_many :extensions, :dependent => :destroy
+  has_many :plugins, :dependent => :destroy
   
   def self.per_page
     25
   end
   
-  def self.extension_authors
-    find(:all, :conditions => ["extensions_count > 0"])
+  def self.plugin_authors
+    find(:all, :conditions => ["plugins_count > 0"])
   end
   
-  def self.extension_authors_count
-    count(:conditions => ["extensions_count > 0"])
+  def self.plugin_authors_count
+    count(:conditions => ["plugins_count > 0"])
   end
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
