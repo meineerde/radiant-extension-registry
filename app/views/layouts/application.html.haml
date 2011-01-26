@@ -4,7 +4,7 @@
     %title= @title
     = stylesheet_link_tag "screen"
     = javascript_include_tag :defaults
-    %link{:href => extensions_path(:format => :atom, :rel => "alternate", :type => "application/atom+xml", :title => "Radiant Extension Registry"}
+    %link{:href => extensions_path(:format => :atom), :rel => "alternate", :type => "application/atom+xml", :title => "ChiliProject Plugin Registry"}
   %body{:id => "#{@controller.controller_name}_#{@controller.action_name}"}
     #header_wrapper
       #header
