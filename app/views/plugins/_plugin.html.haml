@@ -1,0 +1,14 @@
+%tr[plugin]
+  - unless defined? hide_screenshot && hide_screenshot
+    %td.screenshot
+      = image_tag plugin.screenshot.url(:thumb), :width=>120
+  %td.info
+    .name
+      = link_to plugin.name, plugin
+      - unless defined? hide_edit && hide_edit
+        = link_to "Edit", edit_plugin_path(plugin), :class=>"action" if can_edit?(plugin)
+    .description= short_description(plugin.description)
+    - unless defined? hide_author && hide_author
+      .authored
+        by
+        = link_to_author plugin.author

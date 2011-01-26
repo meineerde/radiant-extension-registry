@@ -1,28 +1,31 @@
-- @title = "Radiant CMS Extension Registry"
+- @title = "ChiliProject Plugin Registry"
 - @h1 = ''
 - @selected = :home
 
 - content_for :head do
   %h1 Find, Browse, and Share&#8230;
   %p
-    Radiant CMS extensions for almost every need. Radiant is the no-fluff content management system
-    built on Ruby on Rails.
-  - form_tag "/search", :method => "get", :id => "search" do
+    ChiliProject plugins for almost every need. ChiliProject is a web based
+    project management system built on Ruby on Rails.
+  - form_tag search_path, :method => "get", :id => "search" do
     %p
       %label{:for=>"q"} Search
       %input.search{:name=>"q", :id=>"q", :type=>"text"}/
 
-%h2= %{New Extensions <a href="/extensions.atom">#{ image_tag('feed_icon.png', :class=> 'icon') }</a>}
+%h2
+  New Plugins
+  %a{ :href => plugins_path(:format => :atom) }
+    = image_tag('feed_icon.png', :class=> 'icon')
 
-%table.index#extensions.mini
+%table.index#plugins.mini
   %tbody
-    = render :partial => "extensions/extension", :collection => @extensions, :locals => { :hide_author => true }
+    = render :partial => "plugins/plugin", :collection => @plugins, :locals => { :hide_author => true }
 
 %p.more
-  %span= link_to "More Extensions", extensions_path
+  %span= link_to "More Plugins", plugins_path
 
 - content_for :sidebar do
-  %h2 Extension Authors
+  %h2 Plugin Authors
   
   %table.index#authors.mini{:border=>0, :cellpadding=>0, :cellspacing=>0}
     %tbody
@@ -35,8 +38,9 @@
               = link_to_author author
               - unless defined? hide_edit && hide_edit
                 = link_to "Edit", edit_author_path(author), :class=>"action" if can_edit?(author)
-            .extensions_count
-              = pluralize(author.extensions_count, "extension")
+            .plugins_count
+              = pluralize(author.plugins_count, "plugin")
   
   %p.more
-    %span= link_to "More Authors", authors_path
+    %span
+      = link_to "More Authors", authors_path

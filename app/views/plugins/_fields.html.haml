@@ -3,48 +3,48 @@
     %span Name
   .set
     %p
-      %label{:for => 'extension_name'} Extension Directory Name <span class="hint">(in vendor/extensions)</span>
+      %label{:for => 'plugin_name'} Plugin Directory Name <span class="hint">(in vendor/plugins)</span>
       = f.text_field :name, :size => 33, :class => "textbox"
     %p
-      %label{:for => 'extension_current_version'} Version
+      %label{:for => 'plugin_current_version'} Version
       = f.text_field :current_version, :size => 8, :class => "textbox"
   %p
-    %label{:for => 'extension_homepage'} Homepage
+    %label{:for => 'plugin_homepage'} Homepage
     = f.text_field :homepage, :size => 50, :class => "textbox"
 %fieldset
   %legend 
     %span Compatibility
   %p
-    %label{:for => 'extension_supports_radiant_version'} Radiant Version
+    %label{:for => 'plugin_supports_radiant_version'} Radiant Version
     = f.text_field :supports_radiant_version, :size => 8, :class => "textbox"
     %span.hint{:style=>"display: inline"} (the highest version tested)
 %fieldset
   %legend 
     %span Download URLs
   %p.description
-    These URLs are used by <tt>script/extension install</tt> to download the extension and install it in the appropriate directory.
+    These URLs are used by <tt>script/chili_plugin install</tt> to download the plugin and install it in the appropriate directory.
     You must provide <em>at least</em> one URL.
   .set
     %p
-      %label{:for => 'extension_repository_url'} Repository
+      %label{:for => 'plugin_repository_url'} Repository
       = f.text_field :repository_url, :size => 50, :class => "textbox"
       %span.hint The URL of the Git or Subversion repository
     %p
-      %label{:for => 'extension_repository_type'} Type
+      %label{:for => 'plugin_repository_type'} Type
       = f.select :repository_type, repository_types_for_select, { :include_blank => true }
   .set
     %p
-      %label{:for => 'extension_download_url'} Download
+      %label{:for => 'plugin_download_url'} Download
       = f.text_field :download_url, :size => 50, :class => "textbox"
       %span.hint The URL of the bundled package (tgz, zip, gem)
     %p
-      %label{:for => 'extension_download_type'} Type
+      %label{:for => 'plugin_download_type'} Type
       = f.select :download_type, download_types_for_select, { :include_blank => true }
 %fieldset
   %legend 
     %span Description
   %p.description
-    Enter two or three paragraphs about your extension. Be descriptive!
+    Enter two or three paragraphs about your plugin. Be descriptive!
   %p
     ~ f.text_area :description, :size => "50x8"
     %span.hint Formatted with <a href="http://redcloth.org/hobix.com/textile/quick.html" target="_blank">Textile</a>
@@ -52,7 +52,7 @@
   %legend 
     %span Additional Installation Instructions
   %p.description
-    If there are additional, non-standard installation instructions for your extension, type them below.
+    If there are additional, non-standard installation instructions for your plugin, type them below.
   %p
     ~ f.text_area :additional_installation_instructions, :size => "50x8"
     %span.hint Formatted with <a href="http://redcloth.org/hobix.com/textile/quick.html" target="_blank">Textile</a>

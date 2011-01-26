@@ -1,0 +1,63 @@
+- @title = h(@plugin.name)
+- @title << " plugin" unless @title.match(/plugin/)
+- @title << " - ChiliProject"
+- h1 = h(@plugin.name)
+- h1 << " #{link_to "Edit", edit_plugin_path(@plugin), :class => 'action'}" if can_edit?(@plugin)
+- @h1 = h1
+- @selected = :plugins
+
+.screenshot
+  = link_to image_tag(@plugin.screenshot.url(:medium)), @plugin.screenshot.url(:large)
+
+%div{:style=>"width: 75%"}
+
+  .big
+    = sanitize(textilize(@plugin.description.to_s))
+
+  %table.attributes
+    %tr
+      %th Author
+      %td= link_to_author @plugin.author
+    - unless @plugin.homepage.blank?
+      %tr
+        %th Website
+        %td= link_to h(@plugin.homepage), @plugin.homepage
+    - unless @plugin.repository_url.blank?
+      %tr
+        %th Repository
+        %td= link_to h(@plugin.repository_url), @plugin.repository_url
+    - unless @plugin.download_url.blank?
+      %tr
+        %th Download
+        %td= link_to h(@plugin.download_url), @plugin.download_url
+    - unless @plugin.supports_radiant_version.blank?
+      %tr
+        %th Supports
+        %td= "Radiant #{h @plugin.supports_radiant_version}"
+    %tr
+      %th Record Created
+      %td
+        = @plugin.created_at.to_date.to_s(:long)
+        = "(#{time_ago_in_words(@plugin.created_at)} ago)"
+    - if @plugin.updated_at > @plugin.created_at + 1.day
+      %tr
+        %th Last Updated
+        %td
+          = @plugin.updated_at.to_date.to_s(:long)
+          = "(#{time_ago_in_words(@plugin.updated_at)} ago)"
+  
+  .installation
+    %h3 Installation
+    %p
+      At the command prompt, in the root of your Radiant project, type:
+    = "<pre><code>script/chili_plugin install #{h(@plugin.name)}</code></pre>"
+    - unless @plugin.additional_installation_instructions.blank?
+      = sanitize(textilize(@plugin.additional_installation_instructions))
+  
+  - if can_edit?(@plugin)
+    %p
+      = link_to(image_tag("trash.png", :class => "icon") + " Delete", plugin_path(@plugin), :method => :delete, :confirm => "Are you sure you want to delete this plugin?", :class => "button")
+
+.screenshot-zoom
+  = image_tag(@plugin.screenshot.url(:large))
+  = link_to "close", "#"

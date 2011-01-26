@@ -1,10 +1,10 @@
-- @title = 'Search radiant extensions'
+- @title = 'Search ChiliProject Plugins'
 - @h1 = ''
 - @selected = :search
 
 - content_for :head do
   - if results?
-    %h1= "#{@extensions.size} of #{pluralize(@extensions.total_entries, "result")} for &#8220;#{@query}&#8221;"
+    %h1= "#{@plugins.size} of #{pluralize(@plugins.total_entries, "result")} for &#8220;#{@query}&#8221;"
   - else
     %h1= @title
   - form_tag "/search", :method => "get", :id => "search" do
@@ -13,11 +13,11 @@
       %input.search{:name=>"q", :id=>"q", :type=>"text", :value=>@query}/
 
 - if results?
-  - if @extensions.total_entries > 0
-    %table.index#extensions{:style => "clear: both"}
+  - if @plugins.total_entries > 0
+    %table.index#plugins{:style => "clear: both"}
       %tbody
-        = render :partial => "extension", :collection => @extensions
-    = pagination_for @extensions
+        = render :partial => "plugin", :collection => @plugins
+    = pagination_for @plugins
 
   - content_for :sidebar do
     - for key, title in facet_order 
@@ -43,4 +43,4 @@
                   %td= link_to h(vkey), request.params.merge({ key=>vkey, :page=>1}), :rel=>:nofollow
 
 - else
-  %p Search radiant extensions by name or description, author name or company.
+  %p Search ChiliProject plugins by name or description, author name or company.

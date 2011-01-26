@@ -38,12 +38,12 @@
   %p{:style=>"margin: 1.5em 0"}
     %span.badge Available for Hire
 
-- if @author.extensions_count > 0
-  %h3{:style=>"margin: 2em 0 0.75em"}= "Extensions <small>(#{ @author.extensions_count })</small>"
-  %table.index#extensions{:style=>"width: 75%"}
+- if @author.plugins_count > 0
+  %h3{:style=>"margin: 2em 0 0.75em"}= "Plugins <small>(#{ @author.plugins_count })</small>"
+  %table.index#plugins{:style=>"width: 75%"}
     %tbody
-      = render :partial => "extensions/extension", :collection => @author.extensions, :locals => {:hide_author => true}
+      = render :partial => "plugins/plugin", :collection => @author.plugins, :locals => {:hide_author => true}
 
 - if can_edit?(@author)
   %p{:style=>"margin-top: 2.5em"}
-    = link_to( image_tag("/images/plus.png", :class=>"icon") +" Add Extension", new_extension_path, :class => "button")
+    = link_to( image_tag("/images/plus.png", :class=>"icon") +" Add Plugin", new_plugin_path, :class => "button")

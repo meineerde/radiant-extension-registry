@@ -8,9 +8,9 @@
         = link_to "Edit", edit_author_path(author), :class=>"action" if can_edit?(author)
     .location
       = h(author.location)
-  - unless defined? hide_extension_count && hide_extension_count
-    %td.extensions_count
-      = pluralize(author.extensions_count, "extension")
+  - unless defined? hide_plugin_count && hide_plugin_count
+    %td.plugins_count
+      = pluralize(author.plugins_count, "plugin")
   - unless defined? hide_available_for_hire && hide_available_for_hire
     %td.available_for_hire
       - if author.available_for_hire?

@@ -1,8 +1,8 @@
-- @title = "Edit Radiant CMS Extension"
-- @h1 = "Edit Extension"
-- @selected = :extensions
+- @title = "Edit ChiliProject Plugin"
+- @h1 = "Edit Plugin"
+- @selected = :plugins
 
-- form_for @extension, :html => {:multipart => true} do |f|
+- form_for @plugin, :html => {:multipart => true} do |f|
   = render :partial => "fields", :locals => {:f => f}
   %p.buttons
     %button{:type=>"submit"} Save Changes

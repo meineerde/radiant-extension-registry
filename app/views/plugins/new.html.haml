@@ -1,0 +1,10 @@
+- @title = "Add ChiliProject Plugin"
+- @h1 = "Add Plugin"
+- @selected = :plugins
+
+- form_for @plugin, :html => {:multipart => true} do |f|
+  = render :partial => "fields", :locals => {:f => f}
+  %p.buttons
+    %button{:type=>"submit"} Add Plugin
+    or
+    = link_to "Cancel", plugins_path, :class => "cancel"
