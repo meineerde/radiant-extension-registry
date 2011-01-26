@@ -1,5 +1,5 @@
 en:
-  extensions:
+  plugins:
     index:
       name: "by name"
       updated: "by edit date (latest first)"
