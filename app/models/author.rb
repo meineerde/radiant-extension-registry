@@ -27,6 +27,10 @@ class Author < ActiveRecord::Base
     25
   end
   
+  def self.plugin_authors_count
+    self.plugin_authors.count
+  end
+  
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
